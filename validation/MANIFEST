@@ -1,0 +1,6 @@
+OVERVIEW		overview of validation and RNG testing
+dieharder.out		output of dieharder run
+dieharder.txt		additional information about the dieharder output
+rngtest.out		output of rngtest run
+sts-analysis.txt	final analysis report from sts
+sts-run.txt		sts run output
