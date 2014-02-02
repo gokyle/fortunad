@@ -1,0 +1,139 @@
+$ ls -l ~/tmp/fortunad.out 
+-rw-r--r-- 1 kyle kyle 8450048 Feb  1 22:09 /home/kyle/tmp/fortunad.out
+$ ./assess 1056256
+           G E N E R A T O R    S E L E C T I O N 
+           ______________________________________
+
+    [0] Input File                 [1] Linear Congruential
+    [2] Quadratic Congruential I   [3] Quadratic Congruential II
+    [4] Cubic Congruential         [5] XOR
+    [6] Modular Exponentiation     [7] Blum-Blum-Shub
+    [8] Micali-Schnorr             [9] G Using SHA-1
+
+   Enter Choice: 0
+
+
+		User Prescribed Input File: /home/kyle/tmp/fortunad.out
+
+                S T A T I S T I C A L   T E S T S
+                _________________________________
+
+    [01] Frequency                       [02] Block Frequency
+    [03] Cumulative Sums                 [04] Runs
+    [05] Longest Run of Ones             [06] Rank
+    [07] Discrete Fourier Transform      [08] Nonperiodic Template Matchings
+    [09] Overlapping Template Matchings  [10] Universal Statistical
+    [11] Approximate Entropy             [12] Random Excursions
+    [13] Random Excursions Variant       [14] Serial
+    [15] Linear Complexity
+
+         INSTRUCTIONS
+            Enter 0 if you DO NOT want to apply all of the
+            statistical tests to each sequence and 1 if you DO.
+
+   Enter Choice: 1
+
+        P a r a m e t e r   A d j u s t m e n t s
+        -----------------------------------------
+    [1] Block Frequency Test - block length(M):         128
+    [2] NonOverlapping Template Test - block length(m): 9
+    [3] Overlapping Template Test - block length(m):    9
+    [4] Approximate Entropy Test - block length(m):     10
+    [5] Serial Test - block length(m):                  16
+    [6] Linear Complexity Test - block length(M):       500
+
+   Select Test (0 to continue): 0
+
+   How many bitstreams? 32
+
+   Input File Format:
+    [0] ASCII - A sequence of ASCII 0's and 1's
+    [1] Binary - Each byte in data file contains 8 bits of data
+
+   Select input mode:  1
+
+     Statistical Testing In Progress.........
+
+^C
+~/src/sts-2.1.1
+(130) <ono-sendai:kyle> $ /usr/bin/time -v ./assess 1056256
+           G E N E R A T O R    S E L E C T I O N 
+           ______________________________________
+
+    [0] Input File                 [1] Linear Congruential
+    [2] Quadratic Congruential I   [3] Quadratic Congruential II
+    [4] Cubic Congruential         [5] XOR
+    [6] Modular Exponentiation     [7] Blum-Blum-Shub
+    [8] Micali-Schnorr             [9] G Using SHA-1
+
+   Enter Choice: 0
+
+
+		User Prescribed Input File: /home/kyle/tmp/fortunad.out
+
+                S T A T I S T I C A L   T E S T S
+                _________________________________
+
+    [01] Frequency                       [02] Block Frequency
+    [03] Cumulative Sums                 [04] Runs
+    [05] Longest Run of Ones             [06] Rank
+    [07] Discrete Fourier Transform      [08] Nonperiodic Template Matchings
+    [09] Overlapping Template Matchings  [10] Universal Statistical
+    [11] Approximate Entropy             [12] Random Excursions
+    [13] Random Excursions Variant       [14] Serial
+    [15] Linear Complexity
+
+         INSTRUCTIONS
+            Enter 0 if you DO NOT want to apply all of the
+            statistical tests to each sequence and 1 if you DO.
+
+   Enter Choice: 1
+
+        P a r a m e t e r   A d j u s t m e n t s
+        -----------------------------------------
+    [1] Block Frequency Test - block length(M):         128
+    [2] NonOverlapping Template Test - block length(m): 9
+    [3] Overlapping Template Test - block length(m):    9
+    [4] Approximate Entropy Test - block length(m):     10
+    [5] Serial Test - block length(m):                  16
+    [6] Linear Complexity Test - block length(M):       500
+
+   Select Test (0 to continue): 0
+
+   How many bitstreams? 32
+
+   Input File Format:
+    [0] ASCII - A sequence of ASCII 0's and 1's
+    [1] Binary - Each byte in data file contains 8 bits of data
+
+   Select input mode:  1
+
+     Statistical Testing In Progress.........
+
+     Statistical Testing Complete!!!!!!!!!!!!
+
+Command exited with non-zero status 1
+	Command being timed: "./assess 1056256"
+	User time (seconds): 331.53
+	System time (seconds): 0.12
+	Percent of CPU this job got: 98%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 5:37.06
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30964
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 20941
+	Voluntary context switches: 8
+	Involuntary context switches: 32063
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 5176
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1
+

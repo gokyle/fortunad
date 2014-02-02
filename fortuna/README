@@ -1,0 +1,61 @@
+fishtuna: Fortuna implementation using AES-256 and SHA-256.
+
+The core component of this package is the Fortuna type. A new Fortuna
+PRNG should be set up with one of two functions:
+
+* New to initialise a new PRNG with an empty state
+* FromSeed to initialise a new PRNG from a seed file
+
+If possible, FromSeed should be used to give the PRNG some internal
+state. The Fortuna designers recommend that the seed file be written
+every ten minutes and on shutdown; the `AutoUpdate` function will
+start a goroutine in the background that will check for a shutdown
+event and write out a seed file. It also updates the seed file every
+ten minutes.
+
+Random data can be read from the PRNG using the Read method; the
+PRNG provides an io.Reader interface. Adding entropy is done via
+sources; these should call AddRandomEvent, noting the conditions
+explained in the function documentation.  Each source should have
+an identifying byte; perhaps 0x01 to indicate OS RNG facilities,
+0x02 to indicate a HWRNG, 0x03 to denote keypress events, etc.
+Sources are also expected to distribute events over the entire set
+of entropy pools used by the PRNG; this can be done by using the
+`i` parameter of AddRandomEvent. The current number of pools is
+provided in the PoolSize constant; the source can iterate over this
+count. An event has a maximum size, set in the MaxEventSize constant.
+A source may choose to accept larger events and distribute them
+over multiple pools. The SourceWriter takes this approach.
+
+The PRNG will not be able to provide random data until it has
+acquired enough entropy. Based on recommendations in the book and
+in real world use, the PRNG will need to collect roughly 1040 bytes
+of entropy if it is operating correctly. This is because the maximum
+event size, which is currently 32 bytes (a constraint imposed by
+the Fortuna designers), is less than the current minimum pool size
+(which applies to the first pool). Due to the design requirement
+of distributing events over the entire set of pools, this means
+that all of the pools (there are 32 pools in a Fortuna PRNG) should
+be filled, with an additional 16 bytes in the first pool. That is,
+
+   Initial collection, assuming maximum event size:
+   32 bytes maximum event size * 32 pools = 1024 bytes
+
+   This can be circumvented by not distributing over the pools, but
+   this violates a design parameter of the PRNG and you should not
+   expect it to maintain its integrity at that point.
+
+   The first pool now has 32 bytes, and a minimum of 48 bytes in
+   this pool is required for reading random data. Therefore, the
+   first pool needs to collect another
+   48 bytes - 32 bytes - 16 bytes
+
+   This brings our total to 1040 bytes as an approximation to bring
+   the PRNG online.
+
+If events aren't distrbuted evenly, such as the case where event A
+might only provide 4 bytes of entropy, while event B provides 8
+bytes of entropy in a system that iterates over pools on each event
+(i.e. A goes to pool 2, B goes to pool 3, etc...), the number of
+bytes required might be less or slightly more. Note that a seeded
+PRNG is ready immediately.

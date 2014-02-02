@@ -1,0 +1,33 @@
+FORTUNA VALIDATION
+==================
+
+The `fortunad` server has been validated against three random number
+testing utilities:
+
+1. rngtest: FIPS 140-2 (errata of 2001-10-10) tests
+   source: http://packages.debian.org/source/sid/rng-tools
+2. dieharder: a random number generator testing suite
+   source: http://www.phy.duke.edu/~rgb/General/dieharder.php
+3. sts: NIST statistical test suite (NIST SP 800-22rev1a)
+   source: http://csrc.nist.gov/groups/ST/toolkit/rng/index.html
+
+
+RESULTS
+=======
+
+rngtest: PASS
+dieharder: PASS
+sts: PASS
+
+
+TESTING
+=======
+
+rngtest: netcat is used to pipe RNG output directly to the binary. A
+minimum of 2500 bytes is required for each block, and 1024 blocks are
+tested (the test consumed 20480032 bits total, or 2560004 bytes).
+
+dieharder: netcat is used to pipe RNG output directly to the binary.
+
+
+See MANIFEST for a list of the output files.
